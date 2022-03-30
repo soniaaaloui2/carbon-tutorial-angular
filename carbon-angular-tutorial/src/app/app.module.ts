@@ -1,5 +1,5 @@
 import { BrowserModule } from '@angular/platform-browser';
-import { NgModule } from '@angular/core';
+import { APP_INITIALIZER, NgModule } from '@angular/core';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -9,7 +9,13 @@ import { UIShellModule, IconModule, IconService } from 'carbon-components-angula
  import {NotificationModule} from '@carbon/icons-angular';
  import{UserAvatarModule} from '@carbon/icons-angular';
  import{AppSwitcherModule} from '@carbon/icons-angular';
-@NgModule({
+import { KeycloakSecurityService } from './services/keycloak-security.service';
+
+
+export function kcFactory(kcSecurity :KeycloakSecurityService){
+  return ()=>kcSecurity.init();
+}
+  @NgModule({
   declarations: [
     AppComponent,
     HeaderComponent
@@ -23,6 +29,8 @@ import { UIShellModule, IconModule, IconService } from 'carbon-components-angula
     UserAvatarModule,
     AppSwitcherModule
   ],
+  providers:[{provide : APP_INITIALIZER , 
+    deps : [KeycloakSecurityService] , useFactory: kcFactory, multi:true}],
   bootstrap: [AppComponent]
 })
 

@@ -1,4 +1,5 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { GridModule,BreadcrumbModule } from 'carbon-components-angular';
 
 import { LandingPageComponent } from './landing-page.component';
 
@@ -8,6 +9,7 @@ describe('LandingPageComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
+      imports:[BreadcrumbModule ,GridModule],
       declarations: [ LandingPageComponent ]
     })
     .compileComponents();
